@@ -1,0 +1,97 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  REGISTRY: docker.io
+  REGISTRY_USERNAME: orlevov
+
+jobs:
+  # Runs lint + tests for backend & frontend
+  test:
+    name: Test - ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [backend, frontend]
+
+    services:
+      # MongoDB only used by backend tests
+      mongodb:
+        image: mongo:latest
+        options: >-
+          --health-cmd mongosh
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 3
+        ports:
+          - 27017:27017
+
+    steps:
+      # Pull repo code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Install Node and cache dependencies
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: npm
+          cache-dependency-path: ${{ matrix.service }}/package-lock.json
+
+      # Install service dependencies
+      - name: Install dependencies
+        working-directory: ${{ matrix.service }}
+        run: npm ci
+
+      # Run ESLint if present
+      - name: Lint code
+        working-directory: ${{ matrix.service }}
+        run: npm run lint --if-present
+
+      # Run backend integration tests
+      - name: Run API tests
+        if: matrix.service == 'backend'
+        working-directory: backend
+        run: npm test
+        env:
+          NODE_ENV: test
+          MONGO_URI: mongodb://localhost:27017/linktree-test
+          JWT_SECRET: test-secret-key
+
+
+
+  # Builds Docker images after tests pass
+  build:
+    name: Build - ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    needs: test
+    strategy:
+      matrix:
+        service: [backend, frontend]
+
+    steps:
+      # Pull repo code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Enable Buildx (required for docker/build-push-action)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Build Docker image using local Dockerfile
+      - name: Build image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./${{ matrix.service }}
+          push: false         # Build only (no pushing)
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.REGISTRY_USERNAME }}/finalproject-${{ matrix.service }}:${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.REGISTRY_USERNAME }}/finalproject-${{ matrix.service }}:latest

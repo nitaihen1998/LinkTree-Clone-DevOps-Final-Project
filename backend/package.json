@@ -1,0 +1,27 @@
+{
+  "name": "linktree-backend",
+  "version": "1.0.0",
+  "description": "Backend for Linktree clone",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "jest --forceExit --detectOpenHandles --maxWorkers=2",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0",
+    "jest": "^29.0.0",
+    "supertest": "^6.3.0",
+    "eslint": "^8.50.0"
+  }
+}

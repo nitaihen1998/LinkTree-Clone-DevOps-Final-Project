@@ -1,0 +1,59 @@
+# ========== SENSITIVE FILES (NEVER COMMIT) ==========
+# Environment variables with credentials
+config/.env
+.env
+.env.local
+.env.*.local
+.env.production.local
+
+# Kubernetes secrets (NEVER commit to git)
+k8s/**/secret.yaml
+k8s/secrets/
+*secret*.yaml
+*secret*.yml
+
+# ========== DEPENDENCIES ==========
+node_modules/
+*/node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# ========== BUILD OUTPUTS ==========
+build/
+dist/
+*/build/
+*/dist/
+.cache
+.next
+
+# ========== IDE ==========
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# ========== OS ==========
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ========== LOGS ==========
+logs/
+*.log
+lerna-debug.log*
+
+# ========== DOCKER RELATED ==========
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# ========== TEMPORARY FILES ==========
+tmp/
+temp/
+.tmp
