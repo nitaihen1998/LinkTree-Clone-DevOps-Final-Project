@@ -30,11 +30,6 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
-# attach the EKS VPC Resource Controller policy to the IAM role
-resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSVPCResourceController" {
-  role       = aws_iam_role.eks_cluster_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_VPCResourceController"
-}
 
 
 # IAM for worker nodes (ec2 node group)
