@@ -19,4 +19,20 @@ output "internet_gateway_id" {
   value       = aws_internet_gateway.igw.id
 }
 
+output "private_subnet_ids" {
+  description = "The IDs of the private subnets"
+  value = [
+    aws_subnet.private_a.id,
+    aws_subnet.private_b.id
+  ]
+}
+
+output "nat_gateway_ids" {
+  description = "The IDs of the NAT Gateways"
+  value = [
+    aws_nat_gateway.nat_a.id,
+    aws_nat_gateway.nat_b.id
+  ]
+}
+
 
