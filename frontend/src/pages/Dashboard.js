@@ -38,7 +38,7 @@ function Dashboard() {
         const linksResponse = await axios.get(`${API_BASE_URL}/links`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setLinks(linksResponse.data);
+        setLinks(Array.isArray(linksResponse.data) ? linksResponse.data : []);
       } catch (error) {
         console.error(error);
         navigate('/login');

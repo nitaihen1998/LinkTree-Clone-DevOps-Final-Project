@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
         - name: frontend-container
-          image: orlevov/finalproject-frontend:2.5
-          imagePullPolicy: Never
+          image: orlevov/finalproject-frontend:2.9
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
           resources:

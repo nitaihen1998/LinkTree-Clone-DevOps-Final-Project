@@ -15,10 +15,12 @@ spec:
       labels:
         app: backend
     spec:
+      imagePullSecrets:
+        - name: dockerhub-secret
       containers:
         - name: backend-container
           image: orlevov/finalproject-backend:2.4
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
           resources:
