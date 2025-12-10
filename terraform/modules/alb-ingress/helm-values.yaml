@@ -1,0 +1,8 @@
+clusterName: linkhub-cluster
+serviceAccount:
+  create: true
+  name: aws-load-balancer-controller
+enableShield: false
+enableWaf: false
+enableWafv2: false
+logLevel: info

@@ -1,4 +1,13 @@
 
+# Get EKS cluster info
+data "aws_eks_cluster" "cluster" {
+  name = var.cluster_name
+}
+
+data "aws_eks_cluster_auth" "cluster" {
+  name = var.cluster_name
+}
+
 # 1. Download the official ALB IAM policy JSON
 
 data "http" "alb_policy" {

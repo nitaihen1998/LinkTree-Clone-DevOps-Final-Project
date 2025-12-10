@@ -20,7 +20,7 @@ spec:
       containers:
         - name: backend-container
           image: orlevov/finalproject-backend:2.4
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
           resources:
@@ -36,9 +36,12 @@ spec:
                 secretKeyRef:
                   name: mongodb-atlas-secret
                   key: connectionString
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-atlas-secret
+                  key: jwt-secret
             - name: PORT
               value: "5000"
-            - name: JWT_SECRET
-              value: "09c278d68f2b9ace3f8e6b30bf03d81"
 
     

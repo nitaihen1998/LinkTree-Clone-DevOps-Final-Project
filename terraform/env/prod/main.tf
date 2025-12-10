@@ -38,4 +38,5 @@ module "alb_ingress" {
   oidc_provider_arn = module.eks.oidc_provider_arn
   oidc_provider_url = module.eks.oidc_provider_url
   environment   = var.environment
+  depends_on    = [module.node-group]
 }
