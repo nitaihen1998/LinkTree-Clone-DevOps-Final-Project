@@ -30,13 +30,3 @@ module "node-group" {
   environment       = var.environment
   depends_on        = [module.eks]
 }
-
-module "alb_ingress" {
-  source        = "../../modules/alb-ingress"
-  cluster_name  = var.cluster_name
-  region        = var.region
-  oidc_provider_arn = module.eks.oidc_provider_arn
-  oidc_provider_url = module.eks.oidc_provider_url
-  environment   = var.environment
-  depends_on    = [module.node-group]
-}
