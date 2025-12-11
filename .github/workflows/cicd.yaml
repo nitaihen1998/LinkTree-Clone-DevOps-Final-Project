@@ -131,6 +131,13 @@ jobs:
       - name: Configure kubectl
         run: |
           aws eks update-kubeconfig --name linkhub-prod --region us-east-1
+      
+      - name: Apply k8s manifests
+        run: |
+          kubectl apply -f k8s/namespace.yaml
+          kubectl apply -f k8s/ -R
+
+
 
       # Deploy new Docker images to EKS
       - name: Deploy new images to Kubernetes
