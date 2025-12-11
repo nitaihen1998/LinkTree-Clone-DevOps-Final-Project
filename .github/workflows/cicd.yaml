@@ -58,9 +58,10 @@ jobs:
 
       # Run backend integration tests
       - name: Run API tests
-      if: matrix.service == 'backend'
+        if: matrix.service == 'backend'
         working-directory: backend
         run: npm test
+
         env:
           NODE_ENV: test
           MONGO_URI: mongodb://localhost:27017/linktree-test
