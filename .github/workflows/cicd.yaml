@@ -134,6 +134,17 @@ jobs:
       - name: Configure kubectl
         run: |
           aws eks update-kubeconfig --name linkhub-prod --region us-east-1
+
+      - name: Create DockerHub imagePullSecret
+        run: |
+          kubectl create secret docker-registry dockerhub-secret \
+            --docker-username=${{ env.REGISTRY_USERNAME }} \
+            --docker-password=${{ secrets.DOCKERHUB_TOKEN }} \
+            -n linkhub \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      
+      # Apply k8s manifests      
       
       - name: Apply k8s manifests
         run: |
@@ -153,3 +164,6 @@ jobs:
         run: |
           kubectl rollout status deployment/frontend-deployment -n linkhub
           kubectl rollout status deployment/backend-deployment -n linkhub
+
+
+          
