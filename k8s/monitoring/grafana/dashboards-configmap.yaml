@@ -31,7 +31,7 @@ data:
           "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
           "id": 1,
           "options": {"legend": {"calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "single", "sort": "none"}},
-          "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "rate(http_requests_total{job=\"backend\"}[5m])", "legendFormat": "{{method}} {{route}}", "refId": "A"}],
+          "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "rate(http_requests_total{app=\"backend\"}[5m])", "legendFormat": "{{method}} {{route}}", "refId": "A"}],
           "title": "Request Rate",
           "type": "timeseries"
         },
@@ -50,7 +50,7 @@ data:
           "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
           "id": 2,
           "options": {"legend": {"calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "single", "sort": "none"}},
-          "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "sum(rate(http_requests_total{job=\"backend\", status_code=~\"5..\"}[5m])) / sum(rate(http_requests_total{job=\"backend\"}[5m])) * 100", "legendFormat": "Error Rate %", "refId": "A"}],
+          "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "sum(rate(http_requests_total{app=\"backend\", status_code=~\"5..\"}[5m])) / sum(rate(http_requests_total{app=\"backend\"}[5m])) * 100", "legendFormat": "Error Rate %", "refId": "A"}],
           "title": "Error Rate",
           "type": "timeseries"
         },
@@ -70,9 +70,9 @@ data:
           "id": 3,
           "options": {"legend": {"calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "single", "sort": "none"}},
           "targets": [
-            {"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket{job=\"backend\"}[5m])) by (le))", "legendFormat": "p50", "refId": "A"},
-            {"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job=\"backend\"}[5m])) by (le))", "legendFormat": "p95", "refId": "B"},
-            {"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket{job=\"backend\"}[5m])) by (le))", "legendFormat": "p99", "refId": "C"}
+            {"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket{app=\"backend\"}[5m])) by (le))", "legendFormat": "p50", "refId": "A"},
+            {"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{app=\"backend\"}[5m])) by (le))", "legendFormat": "p95", "refId": "B"},
+            {"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket{app=\"backend\"}[5m])) by (le))", "legendFormat": "p99", "refId": "C"}
           ],
           "title": "Response Time (p50, p95, p99)",
           "type": "timeseries"
@@ -91,7 +91,7 @@ data:
           "gridPos": {"h": 8, "w": 6, "x": 12, "y": 8},
           "id": 4,
           "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"},
-          "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "http_requests_in_progress{job=\"backend\"}", "legendFormat": "Active Connections", "refId": "A"}],
+          "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "http_requests_in_progress{app=\"backend\"}", "legendFormat": "Active Connections", "refId": "A"}],
           "title": "Active Connections",
           "type": "stat"
         },
@@ -109,7 +109,7 @@ data:
           "gridPos": {"h": 8, "w": 6, "x": 18, "y": 8},
           "id": 5,
           "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"},
-          "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "db_connections_active{job=\"backend\"}", "legendFormat": "DB Connections", "refId": "A"}],
+          "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "db_connections_active{app=\"backend\"}", "legendFormat": "DB Connections", "refId": "A"}],
           "title": "Database Connections",
           "type": "stat"
         }
@@ -151,7 +151,7 @@ data:
           "gridPos": {"h": 4, "w": 8, "x": 0, "y": 0},
           "id": 1,
           "options": {"colorMode": "background", "graphMode": "none", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"},
-          "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "up{job=\"backend\"}", "legendFormat": "Backend", "refId": "A"}],
+          "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "up{app=\"backend\"}", "legendFormat": "Backend", "refId": "A"}],
           "title": "Backend Status",
           "type": "stat"
         },
@@ -225,3 +225,4 @@ data:
       "version": 1,
       "weekStart": ""
     }
+
