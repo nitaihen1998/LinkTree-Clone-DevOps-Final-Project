@@ -166,11 +166,18 @@ jobs:
           kubectl set image deployment/frontend-deployment frontend-container=${{ env.REGISTRY }}/${{ env.REGISTRY_USERNAME }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ github.sha }} -n linkhub
           kubectl set image deployment/backend-deployment backend-container=${{ env.REGISTRY }}/${{ env.REGISTRY_USERNAME }}/${{ env.BACKEND_IMAGE_NAME }}:${{ github.sha }} -n linkhub
 
+      # Deploy monitoring stack (Prometheus + Grafana)
+      - name: Deploy monitoring stack
+        run: |
+          kubectl apply -f k8s/monitoring/ -R
+
       # Verify successful rollout
       - name: Verify deployment rollout
         run: |
           kubectl rollout status deployment/frontend-deployment -n linkhub
           kubectl rollout status deployment/backend-deployment -n linkhub
+          kubectl rollout status deployment/prometheus -n linkhub
+          kubectl rollout status deployment/grafana -n linkhub
 
 
           
