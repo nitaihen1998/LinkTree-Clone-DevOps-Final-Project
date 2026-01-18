@@ -23,7 +23,7 @@ spec:
         - name: dockerhub-secret
       containers:
         - name: backend-container
-          image: orlevov/finalproject-backend:2.5
+          image: nitayhen/finalproject-backend:2.5
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
