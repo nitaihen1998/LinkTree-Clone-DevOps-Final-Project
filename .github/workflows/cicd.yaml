@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: docker.io
-  REGISTRY_USERNAME: orlevov
+  REGISTRY_USERNAME: nitayhen
   FRONTEND_IMAGE_NAME: finalproject-frontend
   BACKEND_IMAGE_NAME: finalproject-backend
 
